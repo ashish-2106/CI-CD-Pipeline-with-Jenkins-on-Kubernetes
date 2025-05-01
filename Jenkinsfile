@@ -1,14 +1,19 @@
 pipeline {
     agent {
-        docker { image 'python:3.8' }
+        docker {
+            image 'python:3.8'
+        }
     }
 
     stages {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install Python dependencies
-                    sh 'pip install -r requirements.txt'
+                    sh '''
+                    echo "Installing dependencies..."
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    '''
                 }
             }
         }
@@ -16,8 +21,11 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Build step (optional for Python project)
-                    sh './build.sh'
+                    sh '''
+                    echo "Running build script..."
+                    chmod +x build.sh
+                    ./build.sh
+                    '''
                 }
             }
         }
@@ -25,8 +33,11 @@ pipeline {
         stage('Run') {
             steps {
                 script {
-                    // Run the application
-                    sh './run.sh'
+                    sh '''
+                    echo "Running application..."
+                    chmod +x run.sh
+                    ./run.sh
+                    '''
                 }
             }
         }
@@ -34,8 +45,11 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests
-                    sh './test.sh'
+                    sh '''
+                    echo "Running tests..."
+                    chmod +x test.sh
+                    ./test.sh
+                    '''
                 }
             }
         }
