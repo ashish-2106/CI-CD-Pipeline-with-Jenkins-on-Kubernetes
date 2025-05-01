@@ -1,14 +1,27 @@
 pipeline {
-    agent {
-        docker { image 'python:3.8' }
-    }
+    agent any
 
     stages {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install Python dependencies
-                    sh 'pip install -r requirements.txt'
+                    // Ensure Python and pip are installed with sudo
+                    sh '''
+                    if ! command -v python3 &> /dev/null
+                    then
+                        echo "Python not found, installing..."
+                        sudo apt-get update && sudo apt-get install -y python3 python3-pip
+                    fi
+
+                    if ! command -v pip3 &> /dev/null
+                    then
+                        echo "pip not found, installing..."
+                        sudo apt-get install -y python3-pip
+                    fi
+
+                    # Install Python dependencies
+                    pip3 install -r requirements.txt
+                    '''
                 }
             }
         }
