@@ -27,7 +27,6 @@ pipeline {
     post {
         success {
             echo '✅ Pipeline executed successfully!'
-            echo '📜 Displaying Menu Output Below:'
           
         }
         failure {
