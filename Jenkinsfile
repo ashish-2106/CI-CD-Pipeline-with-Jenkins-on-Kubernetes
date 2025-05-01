@@ -5,18 +5,18 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Ensure Python and pip are installed
+                    // Ensure Python and pip are installed with sudo
                     sh '''
                     if ! command -v python3 &> /dev/null
                     then
                         echo "Python not found, installing..."
-                        apt-get update && apt-get install -y python3 python3-pip
+                        sudo apt-get update && sudo apt-get install -y python3 python3-pip
                     fi
 
                     if ! command -v pip3 &> /dev/null
                     then
                         echo "pip not found, installing..."
-                        apt-get install -y python3-pip
+                        sudo apt-get install -y python3-pip
                     fi
 
                     # Install Python dependencies
