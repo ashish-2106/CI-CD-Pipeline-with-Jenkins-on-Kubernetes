@@ -1,9 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'python:3.8'
-            args '-u root:root'  // Optional: If you need to run the container with root privileges
-        }
+        docker { image 'python:3.8' }
     }
 
     stages {
