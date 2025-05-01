@@ -28,7 +28,7 @@ pipeline {
         success {
             echo '✅ Pipeline executed successfully!'
             echo '📜 Displaying Menu Output Below:'
-            sh 'python app.py'  // <--- This line shows your text output in Jenkins Console
+            sh 'python3 app.py'  // <--- This line shows your text output in Jenkins Console
         }
         failure {
             echo '💥 Something went wrong in the pipeline!'
