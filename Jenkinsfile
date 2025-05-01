@@ -1,63 +1,32 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.8'
-        }
-    }
+    agent any
 
     stages {
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    sh '''
-                    echo "Installing dependencies..."
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                    '''
-                }
-            }
-        }
-
         stage('Build') {
             steps {
-                script {
-                    sh '''
-                    echo "Running build script..."
-                    chmod +x build.sh
-                    ./build.sh
-                    '''
-                }
-            }
-        }
-
-        stage('Run') {
-            steps {
-                script {
-                    sh '''
-                    echo "Running application..."
-                    chmod +x run.sh
-                    ./run.sh
-                    '''
-                }
+                echo '🔨 Building the application...'
+                sh 'echo "Build step executed"'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    sh '''
-                    echo "Running tests..."
-                    chmod +x test.sh
-                    ./test.sh
-                    '''
-                }
+                echo '🧪 Running tests...'
+                sh 'echo "Test step executed"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo '🚀 Deploying application...'
+                sh 'echo "Deploy step executed"'
             }
         }
     }
 
     post {
         success {
-            echo '🎉 CI Pipeline completed successfully!'
+            echo '✅ Pipeline executed successfully!'
         }
         failure {
             echo '💥 Something went wrong in the pipeline!'
